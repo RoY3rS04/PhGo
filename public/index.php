@@ -4,6 +4,23 @@ require_once __DIR__ . "/../vendor/autoload.php";
 
 use Royers\Http\ServeMux;
 use Royers\Http\Methods;
+use Royers\Http\Header;
+
+echo "<pre>";
+$header = new Header();
+var_dump($header->headers);
+echo "</pre>";
+
+echo "<pre>";
+var_dump(getallheaders());
+echo "</pre>";
+
+echo "<br>";
+
+echo "<pre>";
+var_dump($_SERVER);
+echo "</pre>";
+die();
 
 $mux = new ServeMux();
 
