@@ -14,7 +14,7 @@ class Header
       "!", "#", "$", "%", "&", "'", "*", "+", "-", ".", "^", "_", "|", "~"
     ];
 
-    public array $headers = [];
+    private array $headers = [];
 
     public function __construct()
     {
@@ -78,6 +78,36 @@ class Header
         }
 
         return $reqHeaders;
+    }
+
+    public function add(string $key, string $value): void
+    {
+
+    }
+
+    public function clone(): self
+    {
+        return new self();
+    }
+
+    public function del(string $key): void
+    {
+
+    }
+
+    public function get(string $key): string
+    {
+        return '';
+    }
+
+    public function set(string $key, string $value): void
+    {
+
+    }
+
+    public function values(string $key): array
+    {
+        return [];
     }
 
 }
