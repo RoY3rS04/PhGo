@@ -6,12 +6,12 @@ class ServeMux
 {
     private array $routes;
 
-    public function handleFunc(string $route, \Royers\Http\Methods $method, callable $fn)
+    public function handleFunc(string $route, Method $method, callable $fn)
     {
         $this->setRoute($route, $method, $fn);
     }
 
-    private function setRoute(string $route, \Royers\Http\Methods $method, callable $fn)
+    private function setRoute(string $route, Method $method, callable $fn)
     {
         $this->routes["$route:$method->value"] = $fn;
     }
@@ -21,16 +21,15 @@ class ServeMux
         $url = $_SERVER["REQUEST_URI"];
         $httpMethod = $_SERVER["REQUEST_METHOD"];
 
-        echo "<pre>";
-        print_r($_SERVER);
-        echo "</pre>";
-
         if (!isset($this->routes["$url:$httpMethod"])) {
             echo "404 NOT FOUND";
             return;
         }
 
-        $this->routes["$url:$httpMethod"]();
+        $this->routes["$url:$httpMethod"](
+            new Response(),
+            new Request()
+        );
     }
 
 }

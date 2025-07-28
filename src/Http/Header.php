@@ -16,14 +16,18 @@ class Header
 
     private array $headers = [];
 
-    public function __construct()
+    public function __construct(?bool $requestHeader = true)
     {
-        $headers = getallheaders();
-        $this->headers = $headers != false ? $headers : $this->getHeaders();
+        if ($requestHeader) {
+            $this->headers = $this->getHeaders();
+        }
     }
 
     public static function canonicalHeaderKey(string $s): string
     {
+
+        $s = strtolower($s);
+
         $separator = '';
 
         $containsValidSeparator = false;
@@ -57,12 +61,12 @@ class Header
     {
         $reqHeaders = [];
 
-        foreach ($_SERVER as $k => $v) {
-            $key = strtolower($k);
-            $isHttpPrefixed = str_starts_with($key, 'http');
+        foreach ($_SERVER as $key => $v) {
+
+            $isHttpPrefixed = str_starts_with($key, 'HTTP');
 
             if ($isHttpPrefixed
-                || in_array($key, self::COMMON_HEADERS)
+                || in_array(strtolower($key), self::COMMON_HEADERS)
             ) {
 
                 $canonicKey = self::canonicalHeaderKey($key);
@@ -73,7 +77,7 @@ class Header
                     $headerKey = $canonicKey;
                 }
 
-                $reqHeaders[$headerKey] = $v;
+                $reqHeaders[$headerKey][] = $v;
             }
         }
 
@@ -82,32 +86,39 @@ class Header
 
     public function add(string $key, string $value): void
     {
-
+        $this->headers[$this->canonicalHeaderKey($key)][] = $value;
     }
 
     public function clone(): self
     {
-        return new self();
+        $headerClone = new self();
+        $headerClone->headers = $this->headers;
+        return $headerClone;
     }
 
     public function del(string $key): void
     {
-
+        $this->headers[$this->canonicalHeaderKey($key)] = [];
     }
 
     public function get(string $key): string
     {
-        return '';
+        return $this->headers[$this->canonicalHeaderKey($key)][0] ?? "";
     }
 
     public function set(string $key, string $value): void
     {
-
+        $this->headers[$this->canonicalHeaderKey($key)] = [];
+        $this->headers[$this->canonicalHeaderKey($key)][] = $value;
     }
 
     public function values(string $key): array
     {
-        return [];
+        return $this->headers[$this->canonicalHeaderKey($key)];
     }
 
+    public function entries(): array
+    {
+        return $this->headers;
+    }
 }

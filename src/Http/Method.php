@@ -2,7 +2,7 @@
 
 namespace Royers\Http;
 
-enum Methods: string
+enum Method: string
 {
     case Get = 'GET';
     case Post = 'POST';
