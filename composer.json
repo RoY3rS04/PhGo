@@ -1,6 +1,6 @@
 {
-  "name": "royers/snippetbox",
-  "type": "project",
+  "name": "royers/phgo",
+  "type": "library",
   "autoload": {
     "psr-4": {
       "Royers\\": "src/"
@@ -11,5 +11,7 @@
       "name": "RoY3rS04"
     }
   ],
-  "require": {}
+  "require": {},
+  "description": "A simple php library for managing http requests based on the net/http package from golang standard library",
+  "license": "MIT"
 }
