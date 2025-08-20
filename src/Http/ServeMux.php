@@ -31,9 +31,11 @@ class ServeMux
 
         $found = false;
 
+        $parsedUrl = parse_url($url, PHP_URL_PATH);
+
         foreach ($this->routes as $routeRegex => $route) {
 
-            if ((preg_match($routeRegex, $url) || (!$route['isRegex'] && $routeRegex == $url)) && $httpMethod == $route['method']) {
+            if ((preg_match($routeRegex, $parsedUrl) || (!$route['isRegex'] && $routeRegex == $parsedUrl)) && $httpMethod == $route['method']) {
                 $route['handler'](
                     new Response(),
                     new Request(routeStruct: $route['routeStruct'])
