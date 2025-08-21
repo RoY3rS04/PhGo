@@ -11,7 +11,7 @@ use Royers\Http\ServeMux;
 $mux = new ServeMux();
 
 $mux->handleFunc(
-    "/users/{id}",
+    "/users/{user_id}/blogs/{blog_id}",
     Method::Get,
     function (Response $w, Request $r) {
         echo "<pre>";

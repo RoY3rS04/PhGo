@@ -98,6 +98,11 @@ class Request
                 $val = '';
                 continue;
             }
+
+            if ($route[$i] == '?') {
+                break;
+            }
+
             $val .= $route[$i];
         }
 
