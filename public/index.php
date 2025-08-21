@@ -4,8 +4,7 @@
 require_once __DIR__ . "/../vendor/autoload.php";
 
 use Royers\Http\Method;
-use Royers\Http\Request;
-use Royers\Http\Response;
+use Royers\Http\{Request, Response};
 use Royers\Http\ServeMux;
 
 $mux = new ServeMux();
