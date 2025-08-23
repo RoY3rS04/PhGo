@@ -11,7 +11,9 @@
       "name": "RoY3rS04"
     }
   ],
-  "require": {},
+  "require": {
+    "php": ">=8.0"
+  },
   "description": "A simple php library for managing http requests based on the net/http package from golang standard library",
   "license": "MIT"
 }
